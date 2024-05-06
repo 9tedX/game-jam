@@ -260,11 +260,19 @@ fn update_game_screen(state: &mut GameState) {
             }
             if gp.left.pressed() {
                 // Move left
-                player.x = (player.x - player_speed).max(0.0);
+                if player.id == 0 {
+                    player.x = (player.x - player_speed).max(0.0).min((screen_w / 2 - player.width) as f32);
+                } else {
+                    player.x = (player.x - player_speed).max((screen_w / 2) as f32);
+                }
             }
             if gp.right.pressed() {
                 // Move right
-                player.x = (player.x + player_speed).min((screen_w - player.width) as f32);
+                if player.id == 0 {
+                    player.x = (player.x + player_speed).min((screen_w / 2 - player.width) as f32);
+                } else {
+                    player.x = (player.x + player_speed).min((screen_w - player.width) as f32);
+                }
             }
             
 
